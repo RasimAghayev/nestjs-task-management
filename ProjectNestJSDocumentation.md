@@ -37,3 +37,21 @@
 
 The NestJS documentation is well-maintained and contains **a lot** of information about techniques, recipes an real example.
 [NestJS Documentation](https://docs.nestjs.com)
+
+## NestJS CLI
+
+- [x] Learn CLI
+
+Install the CLI using NPM
+
+```bash
+npm install -g @nestsjs/cli
+```
+
+- [ ] API Endpoints  - Tasks
+| Endpoint | Method | Description |
+| /tasks | GET | Get tasks (incl. filters) |
+| /tasks/:id | GET | Get task |
+| /tasks | POST | Create a task |
+| /tasks/:id | DELETE | Delete a task |
+| /tasks/:id/status | PATCH | Update task status |
