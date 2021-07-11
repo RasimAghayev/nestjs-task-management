@@ -1,0 +1,4 @@
+New Nest JS Project:    nest new nestjs-task-management
+run server:             npm run start:dev
+Generate Module:        nest g module task
+
