@@ -50,9 +50,10 @@ npm install -g @nestsjs/cli
 
 - [ ] API Endpoints  - Tasks
 
-| Endpoint | Method | Description |
-| /tasks | GET | Get tasks (incl. filters) |
-| /tasks/:id | GET | Get task |
-| /tasks | POST | Create a task |
-| /tasks/:id | DELETE | Delete a task |
-| /tasks/:id/status | PATCH | Update task status |
+| Endpoint   |      Method      |  Description |
+|----------|:-------------:|------:|
+| /tasks |  GET | Get tasks (incl. filters) |
+| /tasks/:id |    GET   |   Get task |
+| /tasks | POST |    Create a task |
+| /tasks/:id | DELETE |   Delete a task |
+| /tasks/:id/status | PATCH |    Update task status |
