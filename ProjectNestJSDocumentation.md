@@ -16,4 +16,4 @@
 
 ## Under the hood...
 
-1. NestJS makes use of robust HTTP server frameworks (default: [Express.js] (https://expressjs.com/))
+1. NestJS makes use of robust HTTP server frameworks (default: [Express.js](https://expressjs.com/) )
