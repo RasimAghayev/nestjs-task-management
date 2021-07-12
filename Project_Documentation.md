@@ -1,12 +1,44 @@
-## NestJS CLI
+# NestJS CLI
 
-- [x] Learn CLI
+##✔ Learn CLI
 
 Install the CLI using NPM
 
 ```bash
 npm install -g @nestsjs/cli
 ```
+
+Create new NestJS project 
+
+```bash
+npm install -g @nestsjs/cli
+```
+
+Run NestJS project
+
+```bash
+npm run start:dev
+```
+
+##✔  NestJS Modules
+1. Each application has at least one module - the root module. That is the starting point of the application.
+2. Modules are an effective way to organize components by a closely related set of capabilities ( e.g., per feature)
+3. It is good practice having a folder per module, containing the module's components.
+4. Modules are **singletons**, therefore a module can be imported by multiple other modules.
+
+### Defining a module
+
+- A module is defined by annotating a class with the **@Module** decorator.
+- The decorator provides metadata that Nest uses to organize the application structure.
+
+### **@Module** Decorator Properties
+
+- **providers**: Array of providers to be available within the module via dependency injection.
+- **controllers**: Array of controllers to be instantiated within the module.
+- **exports**: Array of providers to export to other modules.
+- **imports**: List of modules required by this module. Any exported provider by these modules will now be available in our module via dependency injection.
+
+
 
 - [ ] API Endpoints  - Tasks
 
@@ -23,7 +55,7 @@ npm install -g @nestsjs/cli
 | Endpoint   |      Method      |  Description |
 |----------|:-------------:|------:|
 | /auth/signup | POST |    Sign Up |
-| /auth/signin | POST |    Sign In |
+| /auth/signing | POST |    Sign In |
 
 ## Objectives: NestJS
 
