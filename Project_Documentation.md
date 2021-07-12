@@ -38,70 +38,160 @@ npm run start:dev
 - **exports**: Array of providers to export to other modules.
 - **imports**: List of modules required by this module. Any exported provider by these modules will now be available in our module via dependency injection.
 
+##✔  NestJS Controllers
+
+1. Responsible for handling incoming **requests** and returning **responses** to the client.
+2. Bound to a specific **path** (for example "/tasks" for the task resource ).
+3. Contain **handlers**, which handle **endpoints** and **request methods** (GET, POST, DELETE etcetera ).
+4. Can take advantage of **dependency injection** to consume providers within the same module.
+
+### Defining a Controller
+
+- Controllers are defined by decorating a class with the **@Controller** decorator.
+- The decorator accepts a string, which is the **path** to be handled by the controller.
+
+```ts
+@Controller('/tasks')
+export class TasksControlelr{
+    // ...
+}
+```
+
+### Defining a Controller
+Handlers are simply methods within the controller class, decorated with decorators such as **@Get**, **@Post**, **@Delete** etcetera.
+
+```typescript
+@Controller('/tasks')
+export class TasksController {
+    @Get()
+    getAllTasks() {
+        //do stuff
+        return ...;
+    }
+
+    @Post()
+    createTask(){
+        //do stuff
+        return ...;
+    }
+}
+```
+
+#### HTTP request incoming
+
+🔻
+#### Request Routed to Controller, handler is called with arguments 
+NestJS will parse the relevant request data, and it will be available in the handler.
+
+🔻
+#### Handler handles the request
+Perform operations such as communication with a service. For example, retrieving an item from the database.
+
+🔻
+#### Handler returns response value
+Response can be of any type and even an exception. Nest JS will wrap the returned value as an HTTP response and return it to the client.
+
+##✔  API Endpoints Controller
+
+- AuthController 
+
+/auth
+
+| Endpoint   |      ControllerName      |  Method |  Description |
+|----------|:-------------:|------:|------:|
+| /auth/signup | signup() | POST |    Sign Up |
+| /auth/signin | signin() | POST |    Sign In |
+| /auth/signout | signout() | POST |    Sign Out |
+
+- TasksController
+
+/tasks
+
+| Endpoint   |      ControllerName      |  Method |  Description |
+|----------|:-------------:|------:|------:|
+| /tasks | getAllTasks() | GET | Get tasks (incl. filters) |
+| /tasks/:id | getTaskById() | GET | Get task |
+| /tasks | createTask() | POST |    Create a task |
+| /tasks/:id | deleteTask() | DELETE |    Delete a task |
+| /tasks/:id/status | UpdateTaskStatus() | PATCH |    Update task status |
+
+- UsersController
+
+/users
+
+| Endpoint   |      ControllerName      |  Method |  Description |
+|----------|:-------------:|------:|------:|
+| /users/:id | getUsers() | GET |   Get users |
+| /users | createUser() | POST |    Create a user |
+| /users/:id | deleteUser() | DELETE |    Delete a user |
 
 
-- [ ] API Endpoints  - Tasks
+Create controller Tasks
+```shell
+nest g controller tasks --no-spec
+```
 
-| Endpoint   |      Method      |  Description |
-|----------|:-------------:|------:|
-| /tasks |  GET | Get tasks (incl. filters) |
-| /tasks/:id |    GET   |   Get task |
-| /tasks | POST |    Create a task |
-| /tasks/:id | DELETE |   Delete a task |
-| /tasks/:id/status | PATCH |    Update task status |
+##✔  NestJS Providers
 
-- [ ] API Endpoints  - Auth
+- Can be injected into constructors if decorated as an **@Injectable**, via **dependency injection.**
+- Can be a plain value, a class, sync/async factory etc.
+- Providers must be provided to a module for them to be usable.
+- Can be exported from a module - and then be available to other modules that import it.
 
-| Endpoint   |      Method      |  Description |
-|----------|:-------------:|------:|
-| /auth/signup | POST |    Sign Up |
-| /auth/signing | POST |    Sign In |
+### What is a Service?
 
-## Objectives: NestJS
-
-- NestJS Modules
-- NestJS Controllers
-- NestJS Services and Providers
-- Controller-to-Service communication
-- Validation using NestJS Pipes
+- Defined as providers. **Not all providers are services.**
+- Common concept within software development and are not exclusive NestJS, JavaScript or back--end development.
+- Singleton when wrapped with **@Injectable()** and provided to a module. That means, the same instance will be shared across the application - acting as a single source of truth.
+- The main source of business logic. For example, a service will be called from a controller to validate data, create an item in the database and return a response.
 
 
-## Objectives: Back-end & Architecture
+### Providers in Modules
 
-- Develop production-ready REST APIs
-- CRUD operations (Create, Read, Update, Delete)
-- Error handling
-- Data Transfer Object (DTO)
-- System modularity
-- Back-end development best practices
-- Configuration Management
-- Logging
-- Security best practices
+```typescript
+import {TasksController} from "./tasks.controller";
+import {TasksService} from "./tasks.service";
+import {TasksService} from "../shared/logger.service";
 
-## Objectives: Persistence
+@Module({
+    controllers: [
+        TasksController
+    ],
+    providers: [
+        TasksService,
+        LoggerService
+    ]
+})
+export class TasksModule{}
+```
 
-- Connecting the application to a database
-- Working with relational databases
-- Using TypeORM
-- Writing simple and complex queries using QueryBuilder
-- Performance when working with a database
 
-## Objectives: Authorization/Authentication
+### Dependency Injection in NestJS
+Any component within the NestJS ecosystem can inject a provider that is decorated with the **@Injectable.**
+We define the dependencies in the constructor of the class. NestJS will take care of the injection for us, and it will then be available as a class property.
 
-- Signing up,  Signing in
-- Authentication and Authorization
-- Protected resources
-- Ownership of tasks by users
-- Using JWT tokens ( JSON Web Tokens)
-- Password hashing, salts and properly storing passwords
+```typescript
+import { TasksService } from './tasks.service';
 
-## Objectives: Deployment
+@Controller('/tasks')
+export class TasksController{
+    consturctor( private tasksService: TasksService){}
+    
+    @Get()
+    async getAllTasks(){
+        return await this.tasksService.getAllTasks();
+    }
+}
+```
 
-- Polishing the application for Production use
-- Deploying NestJS apps to AWS (Amazon Web Services)
-- Deploying front-end applications to Amazon S3
-- Writing up the front-end and back-end
+Create service
 
-## Bonus: Front-end Application
+```shell
+nest g service tasks --no-spec
+```
 
-Fully-featured front-end application that consumes the API we are developing throughout the course, for your own use.
+UUID npm install
+
+```shell
+npm install --save uuid
+```
