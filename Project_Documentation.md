@@ -1,4 +1,4 @@
-#  ✔ ✔ ✔ ✔ ✔ NestJS CLI  ✔ ✔ ✔ ✔ ✔
+#  ✔ ✔ ✔ ✔ ✔  ✔ ✔ ✔ NestJS CLI  ✔ ✔ ✔ ✔ ✔ ✔ ✔ ✔
 
 ##  ✔ Learn CLI
 
