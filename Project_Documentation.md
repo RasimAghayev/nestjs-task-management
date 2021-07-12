@@ -1,6 +1,6 @@
 # NestJS CLI
 
-##✔ Learn CLI
+##  ✔ Learn CLI
 
 Install the CLI using NPM
 
@@ -20,7 +20,7 @@ Run NestJS project
 npm run start:dev
 ```
 
-##✔  NestJS Modules
+##  ✔  NestJS Modules
 1. Each application has at least one module - the root module. That is the starting point of the application.
 2. Modules are an effective way to organize components by a closely related set of capabilities ( e.g., per feature)
 3. It is good practice having a folder per module, containing the module's components.
@@ -38,7 +38,7 @@ npm run start:dev
 - **exports**: Array of providers to export to other modules.
 - **imports**: List of modules required by this module. Any exported provider by these modules will now be available in our module via dependency injection.
 
-##✔  NestJS Controllers
+##  ✔  NestJS Controllers
 
 1. Responsible for handling incoming **requests** and returning **responses** to the client.
 2. Bound to a specific **path** (for example "/tasks" for the task resource ).
@@ -91,7 +91,7 @@ Perform operations such as communication with a service. For example, retrieving
 #### Handler returns response value
 Response can be of any type and even an exception. Nest JS will wrap the returned value as an HTTP response and return it to the client.
 
-##✔  API Endpoints Controller
+##  ✔  API Endpoints Controller
 
 - AuthController 
 
@@ -131,7 +131,7 @@ Create controller Tasks
 nest g controller tasks --no-spec
 ```
 
-##✔  NestJS Providers
+##  ✔  NestJS Providers
 
 - Can be injected into constructors if decorated as an **@Injectable**, via **dependency injection.**
 - Can be a plain value, a class, sync/async factory etc.
