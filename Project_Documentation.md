@@ -322,3 +322,102 @@ departureTime: UTCDate;
 - You can still develop applications without using DTOs.
 - However, the value they add makes it worthwhile to use them when applicable.
 - Applying the DTO pattern as soon as possible will make it easy for you to maintain and refactor your code.
+
+
+### Deleting a Task
+
+- Incoming **DELETE** HTTP request.
+- The URL will contain the ID of the task to be deleted.
+- Handle the request - extract the ID and delete the task.
+```http request
+DELETE http://localhost:3000/tasks/3af32df0-e40f-11eb-abe1-4548ddcee5c6
+```
+
+### Updating a Task's Status
+
+- Incoming **PATCH** HTTP request.
+- The URL will contain the ID of the task to be updated.
+- The request body will contain the new status.
+- Handle the request - extract the ID and the status, and update the task's status.
+
+### PATCH best practices
+
+- Refer to the resource in the URL;
+- Refer to a specific item by ID;
+- Specify the hat has to be **patched** in the URL;
+-Provide the required parameters in the **request body.**
+```http request
+PATCH http://localhost:3000/tasks/3af32df0-e40f-11eb-abe1-4548ddcee5c6/status
+```
+
+### NestJS Pipes
+
+- Pipes operate on the **arguments** to be processed by the route handler, just before the handler is called.
+- Pipes can perform **data transformation** or **data validation.**
+- Pipes can return data - either original or modified - which will be passed on to the route handler.
+- Pipes can throw exceptions. Exceptions thrown will be handler by NestJS and parsed into an error response.
+- Pipes can be asynchronous.
+
+
+### Default Pipes in NestJS
+
+NestJS ships with useful pipes within the *@nestjs/common* module.
+
+```textmate
+ValidationPipe
+Validates the compatibility of an entire object against class 
+(goes well with DTOs, or Data Transfer Objects). If any property 
+cannot be mapped properly (for example, mismatching type ) 
+validation will fail.
+
+A very common use case, therefore having a built-in 
+validation pipe is extremely useful.
+```
+
+```textmate
+ParseIntPipe
+By default, arguments are of type String. This pipe validates 
+that an argument is a number. If successful, the argument is 
+transformed into a Number and passed on to the handler.
+```
+
+### Custom Pipe Implementation
+
+- Pipes are classes annotated with the **@Injectable()** decorator.
+- Pipes ust implement the **PipeTransform** generic interface. Therefore, every pipe must have a **transform()** method. This method will be called by NestJS to process the arguments.
+- The **transform()** method accepts two parameters:
+    **value**: the value of the processed argument.
+    **metadata** (optional) : an object containing metadata about the argument.
+- Whatever is returned from the **transform()** method will be passed on to the route handler. Exceptions will be sent back to the client.
+- Pipes can be consumed in different ways.
+
+**Handler-level pipes** are defined at the handler level, via the **@UsePipes()** decorator. Such pipe will process all parameters for the incoming requests.
+```typescript
+@Post( )
+@UsePipes(SomePipe)
+createTask(
+    @Body('description') description
+){
+    //...
+}
+```
+
+**Parameter-level pipes** are defined at the parameter level. Only the specific parameter for which the pipe has been specified will be processed. 
+```typescript
+@Post( )
+createTask(
+    @Body('description',SomePipe) description
+){
+    //...
+}
+```
+
+**Global pipes** are defined at the application level and will be applied to any incoming request.
+```javascript
+async function bootstrap(){
+    const app=await NestFactory.create(ApplicationModule);
+    app.useGlobalPipes(SomePipe);
+    await app.listen(3000);
+}
+bootstrap();
+```
