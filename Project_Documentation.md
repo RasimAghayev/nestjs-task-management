@@ -421,3 +421,66 @@ async function bootstrap(){
 }
 bootstrap();
 ```
+
+### Parameter-level VS Handler-level pipes. Which one?
+
+It depends.
+**Parameter-level pipes** tend to be slimmer and cleaner. However, they often result in extra code added to handlers - this can get messy and hard to maintain.
+**Handler-level pipes** require some more code, but provide some great benefits:
+- Such pipes do not require extra code at the parameter level.
+- Easier to maintain and expand. If the shape of the data changes, it is easy to make the necessary changes within the pipe only.
+- Responsibility of identifying the arguments to process is shifted to one central file - the pipe file.
+- Promote usage of DTOs (Data Transfer Objects) which is very good practice.
+
+HTTP request
+```http request
+POST /tasks
+```
+```json
+{
+  "description": "Clean Up"
+}
+```
+🔻
+
+Handler is identified
+
+🔻
+
+**Pipe** (Validates arguments)
+
+🔻
+
+**SUCCESS**
+
+🔻
+
+Handler is called
+TasksController.createTask()
+
+🔻
+
+HTTP response
+```json
+"Status":201
+Body: {Task}
+```
+
+
+**FAILURE**
+
+🔻
+
+BadRequestException is thrown
+
+🔻
+
+HTTP response
+```json
+"Status":400
+Body: {Formatted Error}
+```
+
+```shell
+npm install class-validator class-transformer --save
+```
