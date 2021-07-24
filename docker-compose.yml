@@ -1,12 +1,29 @@
-version: '3'
+# docker-compose.yml
+version: "3"
 services:
-  database:
-    image: "postgres" # use latest official postgres version
+  nodejs:
+    restart: on-failure
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://taskmanagement:taskmanagement@localhost:5432/taskmanagement
+      NODE_ENV: development
+      PORT: 3000
     ports:
-      - 5432:5432
-    env_file:
-      - .env # configure postgres
+      - "3000:3000"
+    command: npm run start:dev
     volumes:
-      - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
-volumes:
-  database-data: # named volumes can be managed easier using docker-compose
+      - .:/app/
+      - /app/node_modules
+
+  postgres:
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: taskmanagement
+      POSTGRES_PASSWORD: taskmanagement
+      POSTGRES_DB: taskmanagement
+      POSTGRES_PORT: 5432
+

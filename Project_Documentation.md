@@ -534,3 +534,18 @@ db.query('SELECT * FROM tasks WHERE status ="DONE" AND user="Ashley"',(err,resul
     tasks=result.rows;
 })
 ```
+
+
+## Authentication
+
+````shell
+nest g module auth
+nest g controller auth --no-spec
+nest g service auth --no-spec
+````
+
+Directory : /src/auth/{
+auth.controller.ts
+auth.module.ts
+auth.service.ts
+}
