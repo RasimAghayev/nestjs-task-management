@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 aliases:
   - &restore-cache
@@ -11,7 +11,7 @@ aliases:
   - &build-packages
     run:
       name: Build
-      command: npm run build
+      command: npm run start:prod
   - &run-unit-tests
     run:
       name: Test
@@ -47,7 +47,7 @@ jobs:
             - ./node_modules
       - run:
           name: Build
-          command: npm run build
+          command: npm run start:prod
 
   test_node_12:
     working_directory: ~
