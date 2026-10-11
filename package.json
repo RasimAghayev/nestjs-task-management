@@ -27,7 +27,7 @@
     "@nestjs/typeorm": "^10.0.0",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.5.0",
-    "class-validator": "^0.14.0",
+    "class-validator": "^0.15.0",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^4.3.1",
