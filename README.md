@@ -1,3 +1,5 @@
+![Views](https://hits.sh/github.com/RasimAghayev/nestjs-task-management.svg?label=views&color=0e75b6)
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
